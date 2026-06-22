@@ -3,20 +3,25 @@
    API Service Layer — conecta con el backend Express/MongoDB
    ============================================================ */
 
-// URL DEL BACKEND EN RENDER
-const API_BASE = 'https://studyflow2-0.onrender.com';
+
+// Backend desplegado en Render
+const API_BASE = 'https://studyflow2-0.onrender.com/api';
 
 
 const ApiService = {
 
+
   /* ── Auth Helpers ── */
+
   getToken() {
     return localStorage.getItem('sf_jwt_token');
   },
 
+
   setToken(t) {
     localStorage.setItem('sf_jwt_token', t);
   },
+
 
   clearToken() {
     localStorage.removeItem('sf_jwt_token');
@@ -32,6 +37,7 @@ const ApiService = {
     }
   },
 
+
   setUser(u) {
     localStorage.setItem('sf_user', JSON.stringify(u));
   },
@@ -43,6 +49,7 @@ const ApiService = {
 
 
   /* ── Generic Request ── */
+
   async request(endpoint, options = {}) {
 
     const token = this.getToken();
@@ -80,6 +87,7 @@ const ApiService = {
 
 
   /* ── Auth ── */
+
 
   async login(email, password) {
 
@@ -188,6 +196,7 @@ const ApiService = {
 
   /* ── Tasks ── */
 
+
   async getTasks() {
 
     return this.request('/tasks', {
@@ -236,7 +245,6 @@ const ApiService = {
 };
 
 
-// Export global
 
 window.SF = window.SF || {};
 
