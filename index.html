@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow+ — Eleva tu Enfoque</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-container" id="app-container">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="logo">
+        <div class="logo-icon"><i class="ri-flashlight-fill"></i></div>
+        <span class="logo-text">StudyFlow<span class="brand-plus">+</span></span>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <span class="menu-label">Principal</span>
+      <a class="menu-item active" data-view="dashboard">
+        <i class="ri-dashboard-3-line"></i><span>Dashboard</span>
+      </a>
+      <a class="menu-item" data-view="planner">
+        <i class="ri-calendar-schedule-line"></i><span>Planificador</span>
+      </a>
+      <a class="menu-item" data-view="concentration">
+        <i class="ri-focus-3-line"></i><span>Concentración</span>
+      </a>
+
+      <span class="menu-label">Herramientas</span>
+      <a class="menu-item" data-view="templates">
+        <i class="ri-layout-grid-line"></i><span>Plantillas</span>
+      </a>
+      <a class="menu-item" data-view="study">
+        <i class="ri-book-open-line"></i><span>Método de Estudio</span>
+      </a>
+      <a class="menu-item" data-view="reading">
+        <i class="ri-book-2-line"></i><span>Reto de Lectura</span>
+      </a>
+
+      <span class="menu-label">Sistema</span>
+      <a class="menu-item" data-view="videos">
+        <i class="ri-play-circle-line"></i><span>Videos</span>
+      </a>
+      <a class="menu-item" data-view="settings">
+        <i class="ri-settings-4-line"></i><span>Configuración</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-row" id="user-row">
+        <div class="user-avatar-sm" id="sidebar-avatar">M</div>
+        <div class="user-info-sm">
+          <span class="user-name-sm" id="user-display">Estudiante</span>
+          <span class="user-xp" id="user-xp">0 XP</span>
+        </div>
+        <button class="icon-btn-sm" id="btn-logout" title="Cerrar sesión">
+          <i class="ri-logout-box-r-line"></i>
+        </button>
+      </div>
+
+      <div class="dev-credit">
+        <div class="dev-info">
+          <span class="dev-name">Mateo Farias</span>
+          <span class="dev-role">Desarrollador · StudyFlow+</span>
+        </div>
+        <div class="dev-links">
+          <!-- 👉 REEMPLAZA "TU_INSTAGRAM" por la URL real de tu perfil de Instagram -->
+          <a href="https://instagram.com/matt_23g" target="_blank" title="Instagram" rel="noopener">
+            <i class="ri-instagram-line"></i>
+          </a>
+          <!-- 👉 REEMPLAZA "TU_GITHUB" por la URL real de tu perfil de GitHub -->
+          <a href="https://github.com/mateofariasjmv-lgtm" target="_blank" title="GitHub" rel="noopener">
+            <i class="ri-github-line"></i>
+          </a>
+          <!-- 👉 REEMPLAZA "TU_LINKEDIN" por la URL real de tu perfil de LinkedIn -->
+          <a href="TU_LINKEDIN" target="_blank" title="LinkedIn" rel="noopener">
+            <i class="ri-linkedin-box-line"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="main-content" id="main-content">
+
+    <header class="content-header">
+      <div class="header-left">
+        <button class="mobile-toggle" id="mobileToggle">
+          <i class="ri-menu-line"></i>
+        </button>
+        <div>
+          <h1 id="page-title">Dashboard</h1>
+          <p class="date-text" id="current-date">—</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-search">
+          <i class="ri-search-line"></i>
+          <input type="text" id="global-search" placeholder="Buscar tareas...">
+        </div>
+        <div class="notif-wrap">
+          <button class="icon-btn notif-btn" id="notifBtn" title="Notificaciones">
+            <i class="ri-notification-3-line"></i>
+            <span class="notif-badge hidden" id="notif-badge">0</span>
+          </button>
+        </div>
+        <div class="header-avatar" id="header-avatar">?</div>
+      </div>
+    </header>
+
+    <!-- VIEW INJECTED HERE -->
+    <div id="app-view" class="app-view"></div>
+
+  </main>
+</div>
+
+<!-- ═══ MOBILE OVERLAY ═══ -->
+<div class="mobile-overlay hidden" id="mobileOverlay"></div>
+
+<!-- ═══ NOTIFICATION PANEL ═══ -->
+<aside class="notif-panel hidden" id="notif-panel">
+  <div class="notif-panel-header">
+    <div class="notif-panel-title">
+      <i class="ri-notification-3-line"></i>
+      <h3>Notificaciones</h3>
+    </div>
+    <div class="notif-panel-actions">
+      <button class="btn-text-sm" id="markAllRead">Leer todas</button>
+      <button class="icon-btn" id="closeNotifPanel"><i class="ri-close-line"></i></button>
+    </div>
+  </div>
+  <div class="notif-list" id="notif-list">
+    <div class="notif-empty">
+      <i class="ri-notification-off-line"></i>
+      <p>Sin notificaciones</p>
+    </div>
+  </div>
+</aside>
+<div class="panel-backdrop hidden" id="panel-backdrop"></div>
+
+<!-- ═══ AUTH MODAL ═══ -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="auth-card">
+    <div class="auth-logo-wrap">
+      <div class="auth-logo-icon"><i class="ri-flashlight-fill"></i></div>
+      <h2>StudyFlow<span class="brand-plus">+</span></h2>
+      <p>Organiza tu estudio. Mejora tu concentración.</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="atab active" id="tab-login">Iniciar Sesión</button>
+      <button class="atab" id="tab-register">Registrarse</button>
+    </div>
+    <form id="auth-form" class="auth-form" novalidate>
+      <div class="field-group hidden" id="group-name">
+        <label>Nombre Completo</label>
+        <div class="field-wrap">
+          <i class="ri-user-3-line"></i>
+          <input type="text" id="user-name" placeholder="Mateo Farias" autocomplete="name">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Correo Electrónico</label>
+        <div class="field-wrap">
+          <i class="ri-mail-line"></i>
+          <input type="email" id="user-email" placeholder="nombre@ejemplo.com" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Contraseña</label>
+        <div class="field-wrap">
+          <i class="ri-lock-2-line"></i>
+          <input type="password" id="user-password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+      </div>
+      <p class="auth-error hidden" id="auth-error"></p>
+      <button type="submit" class="btn-submit" id="btn-auth-submit">
+        <span id="auth-btn-label">Acceder al Panel</span>
+        <i class="ri-arrow-right-line"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ TASK MODAL ═══ -->
+<div class="modal-overlay hidden" id="task-modal">
+  <div class="modal-card">
+    <div class="modal-card-header">
+      <h3 id="task-modal-title"><i class="ri-add-circle-line"></i> Nueva Tarea</h3>
+      <button class="icon-btn" id="close-task-modal"><i class="ri-close-line"></i></button>
+    </div>
+    <form id="task-form" novalidate>
+      <input type="hidden" id="task-edit-id">
+      <div class="field-group">
+        <label>Nombre de la tarea *</label>
+        <input class="field-input" type="text" id="task-text" placeholder="Ej: Estudiar para examen de Física" required>
+      </div>
+      <div class="field-group">
+        <label>Descripción</label>
+        <textarea class="field-input" id="task-description" rows="2" placeholder="Detalles adicionales..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="field-group">
+          <label>Prioridad</label>
+          <select class="field-input" id="task-priority">
+            <option value="alta">🔴 Alta</option>
+            <option value="media" selected>🟡 Media</option>
+            <option value="baja">🟢 Baja</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Categoría</label>
+          <select class="field-input" id="task-category">
+            <option value="Académica">📚 Académica</option>
+            <option value="Personal">👤 Personal</option>
+            <option value="Proyecto">🚀 Proyecto</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field-group">
+          <label>Materia</label>
+          <input class="field-input" type="text" id="task-subject" placeholder="Ej: Matemáticas">
+        </div>
+        <div class="field-group">
+          <label>Fecha de entrega</label>
+          <input class="field-input" type="datetime-local" id="task-due">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" id="cancel-task-modal">Cancelar</button>
+        <button type="submit" class="btn-primary"><i class="ri-save-line"></i> Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ BOOK MODAL ═══ -->
+<div class="modal-overlay hidden" id="book-modal">
+  <div class="modal-card">
+    <div class="modal-card-header">
+      <h3 id="book-modal-title"><i class="ri-book-2-line"></i> Añadir Libro</h3>
+      <button class="icon-btn" id="close-book-modal"><i class="ri-close-line"></i></button>
+    </div>
+    <form id="book-form" novalidate>
+      <input type="hidden" id="book-edit-id">
+      <div class="field-group">
+        <label>Título *</label>
+        <input class="field-input" type="text" id="book-title" placeholder="Ej: El Poder de los Hábitos" required>
+      </div>
+      <div class="form-row">
+        <div class="field-group">
+          <label>Autor</label>
+          <input class="field-input" type="text" id="book-author" placeholder="Ej: Charles Duhigg">
+        </div>
+        <div class="field-group">
+          <label>Páginas</label>
+          <input class="field-input" type="number" id="book-pages" placeholder="320" min="1">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Estado</label>
+        <select class="field-input" id="book-status">
+          <option value="quiero">📌 Quiero leer</option>
+          <option value="leyendo">📖 Leyendo</option>
+          <option value="completado">✅ Completado</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Notas</label>
+        <textarea class="field-input" id="book-notes" rows="2" placeholder="Anotaciones personales..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" id="cancel-book-modal">Cancelar</button>
+        <button type="submit" class="btn-primary"><i class="ri-save-line"></i> Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/services.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/toasts.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/tasks.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/planner.js"></script>
+<script src="js/methods.js"></script>
+<script src="js/study.js"></script>
+<script src="js/reading.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

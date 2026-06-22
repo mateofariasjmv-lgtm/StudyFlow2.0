@@ -1,0 +1,14 @@
+# Dependencias
+node_modules/
+studyflow-backend/node_modules/
+
+# Variables privadas
+.env
+studyflow-backend/.env
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
