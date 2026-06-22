@@ -20,22 +20,23 @@ connectDB();
 
 app.use(cors({
     origin: [
-        '*'
+        'https://studyfloowww.netlify.app',
+        'http://localhost:5000',
+        'http://127.0.0.1:5500'
     ],
     methods: [
         'GET',
         'POST',
         'PUT',
         'DELETE',
-        'PATCH'
+        'OPTIONS'
     ],
     allowedHeaders: [
         'Content-Type',
         'Authorization'
-    ]
+    ],
+    credentials: true
 }));
-
-app.use(express.json());
 
 
 // ===============================
