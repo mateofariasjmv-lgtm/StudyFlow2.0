@@ -3,7 +3,7 @@
    API Service Layer — conecta con el backend Express/MongoDB
    ============================================================ */
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'const API_URL = "https://tu-backend.onrender.com";';
 
 const ApiService = {
 
